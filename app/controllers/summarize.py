@@ -7,11 +7,9 @@ from fastapi import Request
 from bson import ObjectId
 
 
-from openai import OpenAI
 
 # openai.api_key = "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"
 
-client = OpenAI(api_key="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")  # Set up your API key
 
 
 
@@ -65,27 +63,3 @@ async def summarize_file(file: UploadFile = File(...)):
         print("❌ Summarization failed:", e)
         raise HTTPException(status_code=500, detail="Summarization failed")
 
-
-
-@router.post("/open-summarize/{file_id}")
-async def summarize_file(file_id: str, request: Request):
-    db = request.app.state.db
-    file = await db["File"].find_one({"_id": ObjectId(file_id)})
-
-
-    if not file or "content" not in file:
-        raise HTTPException(status_code=404, detail="File not found or no content")
-
-    content = file["content"]
-    prompt = f"Please summarize the following document in bullet points:\n\n{content[:3000]}"  # truncate for safety
-
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",  # or any model from OpenRouter
-        messages=[
-            {"role": "system", "content": "You are a helpful summarization assistant."},
-            {"role": "user", "content": prompt}
-        ]
-    )
-
-    summary = response.choices[0].message["content"]
-    return {"summary": summary}
