@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual env
+venv/
+env/
+ENV/
+.venv/
+
+# dotenv
+.env
+
+# VS Code
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Uploads & logs (optional)
+uploads/
+logs/
+
+# Byte-compiled and backup files
+*.bak
+*.swp
+*.tmp
+
+# render cache
+.render/
+
+
+
+
+

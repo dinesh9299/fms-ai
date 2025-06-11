@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: fastapi-fms-backend
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -m app.run"
+    envVars:
+      - key: MONGO_URI
+        value: YOUR_MONGODB_URI
+      - key: JWT_SECRET
+        value: YOUR_JWT_SECRET
+      - key: EMAIL_USER
+        value: your@email.com
+      - key: EMAIL_PASS
+        value: yourpassword
+    plan: free
